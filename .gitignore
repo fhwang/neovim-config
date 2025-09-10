@@ -1,0 +1,14 @@
+# Lazy.nvim plugin directory
+/plugin/
+
+# Neovim temporary files
+*.tmp
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code directory
+.claude/
