@@ -6,7 +6,7 @@ return {
     priority = 1000,
     config = function()
       require("tokyonight").setup({
-        style = "night",
+        style = "day",
         light_style = "day",
         transparent = false,
         terminal_colors = true,
@@ -25,7 +25,7 @@ return {
         lualine_bold = false,
       })
 
-      vim.cmd("colorscheme tokyonight")
+      vim.cmd("colorscheme tokyonight-day")
     end,
   },
   {

@@ -1,5 +1,6 @@
-# Lazy.nvim plugin directory
+# Lazy.nvim files
 /plugin/
+lazy-lock.json
 
 # Neovim temporary files
 *.tmp
