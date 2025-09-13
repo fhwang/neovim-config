@@ -54,3 +54,17 @@ opt.timeoutlen = 300
 
 -- Sign column
 opt.signcolumn = "yes"
+
+-- Neovide specific settings
+if g.neovide then
+  -- Disable Cmd+C saving file (only copy to clipboard)
+  vim.keymap.set("n", "<D-c>", '"+y', { desc = "Copy to system clipboard" })
+  vim.keymap.set("v", "<D-c>", '"+y', { desc = "Copy to system clipboard" })
+  vim.keymap.set("i", "<D-c>", '<Esc>"+yi', { desc = "Copy to system clipboard" })
+  
+  -- Optional: Set other common Mac shortcuts
+  vim.keymap.set("n", "<D-v>", '"+p', { desc = "Paste from system clipboard" })
+  vim.keymap.set("i", "<D-v>", '<C-r>+', { desc = "Paste from system clipboard" })
+  vim.keymap.set("n", "<D-s>", ":w<CR>", { desc = "Save file" })
+  vim.keymap.set("i", "<D-s>", '<Esc>:w<CR>a', { desc = "Save file" })
+end
