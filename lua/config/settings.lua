@@ -34,7 +34,7 @@ opt.expandtab = true
 opt.smartindent = true
 
 -- Visual
-opt.wrap = false
+opt.wrap = true
 opt.termguicolors = true
 opt.cursorline = false
 opt.scrolloff = 8
