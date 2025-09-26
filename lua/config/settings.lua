@@ -8,7 +8,7 @@ g.maplocalleader = " "
 
 -- Line numbers
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 
 -- Mouse support
 opt.mouse = "a"
