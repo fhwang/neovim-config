@@ -19,6 +19,19 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "truncate" },
+        find_command = function()
+          if vim.fn.executable("fd") == 1 then
+            return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
+          else
+            vim.notify("fd not found! Install it with: brew install fd", vim.log.levels.WARN)
+            -- Fallback to ripgrep or find
+            if vim.fn.executable("rg") == 1 then
+              return { "rg", "--files", "--color", "never", "-g", "!.git" }
+            else
+              return { "find", ".", "-type", "f" }
+            end
+          end
+        end,
         file_ignore_patterns = {
           "node_modules",
           ".git/",
@@ -28,6 +41,13 @@ return {
           ".next/",
           "__pycache__/",
           "%.lock",
+          "tmp/",
+          "log/",
+          "coverage/",
+          "*.log",
+          "public/assets/",
+          "public/packs/",
+          "vendor/bundle/",
         },
         mappings = {
           i = {
@@ -44,7 +64,8 @@ return {
       },
     })
 
-    -- telescope.load_extension("fzf") -- Disabled due to build issues
+    -- Load fzf extension for better performance
+    pcall(require("telescope").load_extension, "fzf")
 
     -- Keymaps
     local keymap = vim.keymap
