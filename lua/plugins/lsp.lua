@@ -19,19 +19,10 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({
+      vim.lsp.config('*', {
         capabilities = capabilities,
       })
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
+      vim.lsp.enable({ 'lua_ls', 'rust_analyzer', 'pyright', 'ts_ls' })
 
       -- LSP keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
