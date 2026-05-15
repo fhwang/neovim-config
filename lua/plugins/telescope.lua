@@ -19,19 +19,6 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "truncate" },
-        find_command = function()
-          if vim.fn.executable("fd") == 1 then
-            return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
-          else
-            vim.notify("fd not found! Install it with: brew install fd", vim.log.levels.WARN)
-            -- Fallback to ripgrep or find
-            if vim.fn.executable("rg") == 1 then
-              return { "rg", "--files", "--color", "never", "-g", "!.git" }
-            else
-              return { "find", ".", "-type", "f" }
-            end
-          end
-        end,
         file_ignore_patterns = {
           "node_modules",
           ".git/",
@@ -60,6 +47,34 @@ return {
       pickers = {
         find_files = {
           hidden = true,
+          find_command = function()
+            if vim.fn.executable("fd") == 1 then
+              return {
+                "fd", "--type", "f", "--color", "never", "--hidden",
+                "--exclude", ".git",
+                "--exclude", "node_modules",
+                "--exclude", "target",
+                "--exclude", "build",
+                "--exclude", "dist",
+                "--exclude", ".next",
+                "--exclude", "__pycache__",
+                "--exclude", "tmp",
+                "--exclude", "log",
+                "--exclude", "coverage",
+                "--exclude", "public/assets",
+                "--exclude", "public/packs",
+                "--exclude", "vendor/bundle",
+              }
+            else
+              return { "find", ".", "-type", "f",
+                "-not", "-path", "*/.git/*",
+                "-not", "-path", "*/node_modules/*",
+                "-not", "-path", "*/vendor/bundle/*",
+                "-not", "-path", "*/tmp/*",
+                "-not", "-path", "*/log/*",
+              }
+            end
+          end,
         },
       },
     })
